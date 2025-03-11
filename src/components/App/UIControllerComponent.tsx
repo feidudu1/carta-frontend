@@ -16,7 +16,7 @@ import {
     RegionDialogComponent,
     ShareWorkspaceDialogComponent,
     StokesDialogComponent,
-    TelemetryDialogComponent,
+    // TelemetryDialogComponent,
     VectorOverlayDialogComponent,
     WorkspaceDialogComponent
 } from "components/Dialogs";
@@ -42,7 +42,7 @@ export class UIControllerComponent extends React.Component {
                 <ExternalPageDialogComponent />
                 <HelpDrawerComponent />
                 <StokesDialogComponent />
-                <TelemetryDialogComponent />
+                {/* <TelemetryDialogComponent /> */}
                 <SplashScreenComponent />
                 <FittingDialogComponent />
             </React.Fragment>
