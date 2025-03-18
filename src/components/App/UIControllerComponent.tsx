@@ -7,7 +7,7 @@ import {
     CodeSnippetDialogComponent,
     ContourDialogComponent,
     ExternalPageDialogComponent,
-    FileBrowserDialogComponent,
+    // FileBrowserDialogComponent,
     FileInfoDialogComponent,
     FittingDialogComponent,
     LayoutDialogComponent,
@@ -32,7 +32,8 @@ export class UIControllerComponent extends React.Component {
                 <ContourDialogComponent />
                 <VectorOverlayDialogComponent />
                 <FileInfoDialogComponent />
-                <FileBrowserDialogComponent />
+                {/* 隐藏文件选择弹窗 */}
+                {/* <FileBrowserDialogComponent /> */}
                 <PreferenceDialogComponent />
                 <LayoutDialogComponent />
                 <WorkspaceDialogComponent />
