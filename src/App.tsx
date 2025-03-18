@@ -5,6 +5,7 @@ import {observer} from "mobx-react";
 
 import {FloatingWidgetManagerComponent, UIControllerComponent} from "components";
 import {TaskProgressDialogComponent} from "components/Dialogs";
+import FileInfoPanel from "components/FileInfoPanel";
 import {ResizeDetector} from "components/Shared";
 import {ApiService} from "services";
 import {AlertStore, AlertType, AppStore} from "stores";
@@ -92,6 +93,7 @@ export class App extends React.Component {
         return (
             <div className={className}>
                 <UIControllerComponent />
+                <FileInfoPanel />
                 {alertComponent}
                 <TaskProgressDialogComponent
                     progress={undefined}
