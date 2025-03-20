@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Colors, FormGroup, HTMLSelect, NonIdealState} from "@blueprintjs/core";
+import {Colors, NonIdealState} from "@blueprintjs/core";
 import * as AST from "ast_wrapper";
 import {CARTA} from "carta-protobuf";
 import {Tick} from "chart.js";
@@ -7,7 +7,7 @@ import * as _ from "lodash";
 import {action, autorun, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 
-import {LinePlotComponent, LinePlotComponentProps, PlotType, ProfilerInfoComponent, RegionSelectorComponent, ResizeDetector, SmoothingType, VERTICAL_RANGE_PADDING} from "components/Shared";
+import {LinePlotComponent, LinePlotComponentProps, PlotType, ProfilerInfoComponent, ResizeDetector, SmoothingType, VERTICAL_RANGE_PADDING} from "components/Shared";
 import {Point2D, POLARIZATIONS} from "models";
 import {AppStore, ASTSettingsString, DefaultWidgetConfig, HelpType, SpatialProfileStore, WidgetProps, WidgetsStore} from "stores";
 import {FrameStore} from "stores/Frame";
@@ -715,15 +715,15 @@ export class SpatialProfilerComponent extends React.Component<WidgetProps> {
             <ResizeDetector onResize={this.onResize} throttleTime={33}>
                 <div className={"spatial-profiler-widget"}>
                     <div className="profile-container">
-                        <div className="profile-toolbar">
+                        {/* <div className="profile-toolbar">
                             <RegionSelectorComponent widgetStore={widgetStore} />
                             {widgetStore.effectiveFrame?.hasStokes && (
                                 <FormGroup label={"Polarization"} inline={true}>
                                     <HTMLSelect value={widgetStore.selectedStokes} options={widgetStore.stokesOptions} onChange={ev => widgetStore.setSelectedStokes(ev.currentTarget.value)} />
                                 </FormGroup>
                             )}
-                        </div>
-                        <div className="profile-plot">
+                        </div> */}
+                        <div className="profile-plot" style={{width: 600, height: 300}}>
                             <LinePlotComponent {...linePlotProps} />
                         </div>
                         <div className="profile-info" data-testid={(isXProfile ? "x" : "y") + "-profiler-info"}>

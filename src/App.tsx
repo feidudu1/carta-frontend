@@ -1,10 +1,11 @@
 import * as React from "react";
-import {Alert, Classes, Intent} from "@blueprintjs/core";
+import {Alert, Classes, Dialog, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 import {observer} from "mobx-react";
 
-import {FloatingWidgetManagerComponent, UIControllerComponent} from "components";
+import {FloatingWidgetManagerComponent, SpatialProfilerComponent, UIControllerComponent} from "components";
 import {TaskProgressDialogComponent} from "components/Dialogs";
+import FileInfoPanel from "components/FileInfoPanel";
 import {ResizeDetector} from "components/Shared";
 import {ApiService} from "services";
 import {AlertStore, AlertType, AppStore} from "stores";
@@ -92,6 +93,7 @@ export class App extends React.Component {
         return (
             <div className={className}>
                 <UIControllerComponent />
+                <FileInfoPanel />
                 {alertComponent}
                 <TaskProgressDialogComponent
                     progress={undefined}
@@ -105,6 +107,17 @@ export class App extends React.Component {
                 </ResizeDetector>
                 <HotkeyTargetContainer />
                 <FloatingWidgetManagerComponent />
+                <Dialog
+                    title="亮度分布"
+                    style={{width: "max-content"}}
+                    isOpen={appStore.showSpatialProfilerDialog}
+                    onClose={() => {
+                        appStore.showSpatialProfilerDialog = false;
+                        appStore.deleteAllRegions();
+                    }}
+                >
+                    <SpatialProfilerComponent id="spatial-profiler" docked />
+                </Dialog>
             </div>
         );
     }
