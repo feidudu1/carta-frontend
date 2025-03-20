@@ -349,6 +349,12 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                                 </Tooltip>
                             </>
                         )}
+                        <Tooltip position={tooltipPosition} content={<span>Create line region</span>}>
+                            <div className={`toolbar-icon`} onClick={() => this.handleRegionTypeClicked(CARTA.RegionType.LINE)}>
+                                {/* 等待样式 commit 后，这里 icon 换成自定义的 line icon */}
+                                <AnchorButton icon={"hand"} />
+                            </div>
+                        </Tooltip>
                         <Tooltip position={tooltipPosition} content={<span>Zoom in (scroll wheel up){currentZoomSpan}</span>}>
                             <AnchorButton icon={"zoom-in"} onClick={this.handleZoomInClicked} data-testid="zoom-in-button" />
                         </Tooltip>

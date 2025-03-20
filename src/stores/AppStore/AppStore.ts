@@ -164,6 +164,7 @@ export class AppStore {
 
     @observable fileResponse: any;
     @observable fileParams: any;
+    @observable showSpatialProfilerDialog: boolean = false;
 
     // dynamic zIndex
     public zIndexManager = new FloatingObjzIndexManager();
