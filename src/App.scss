@@ -8,6 +8,7 @@ body {
     &.#{$ns}-dark {
         background-color: $dark-gray4;
     }
+    font-family: PingFang SC;
 }
 
 // TODO: Determine if the hard-coded z-index settings can be reduced or removed
@@ -19,17 +20,19 @@ body {
     left: 0;
     z-index: -100;
     user-select: none;
+    display: flex;
     .#{$ns}-dark {
         background-color: $pt-dark-app-background-color;
     }
 }
 
 .gl-container-app {
-    position: absolute;
-    top: 48px;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
+    // position: absolute;
+    // top: 48px;
+    // bottom: 5px;
+    // left: 5px;
+    // right: 5px;
+    flex: 1;
     z-index: -100;
 }
 
@@ -73,4 +76,26 @@ body {
     div.plotly-notifier {
         visibility: hidden;
     }
+}
+.lm_column {
+    width: 100% !important;
+}
+.lm_stack {
+    width: 100% !important;
+    height: 100% !important;
+}
+.lm_header {
+    display: none;
+}
+.lm_items {
+    height: 100% !important;
+}
+.image-view-div {
+    height: 100% !important;
+}
+.lm_content {
+    height: 100% !important;
+}
+.lm_item_container {
+    height: 100% !important;
 }

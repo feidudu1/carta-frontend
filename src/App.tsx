@@ -3,7 +3,11 @@ import {Alert, Classes, Dialog, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 import {observer} from "mobx-react";
 
-import {FloatingWidgetManagerComponent, SpatialProfilerComponent, UIControllerComponent} from "components";
+import {
+    FloatingWidgetManagerComponent,
+    SpatialProfilerComponent
+    // UIControllerComponent
+} from "components";
 import {TaskProgressDialogComponent} from "components/Dialogs";
 import FileInfoPanel from "components/FileInfoPanel";
 import {ResizeDetector} from "components/Shared";
@@ -92,7 +96,7 @@ export class App extends React.Component {
 
         return (
             <div className={className}>
-                <UIControllerComponent />
+                {/* <UIControllerComponent /> */}
                 <FileInfoPanel />
                 {alertComponent}
                 <TaskProgressDialogComponent

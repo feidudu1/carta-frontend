@@ -1,7 +1,11 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 
-import {HelpDrawerComponent, RootMenuComponent, SplashScreenComponent} from "components";
+import {
+    HelpDrawerComponent
+    // RootMenuComponent,
+    // SplashScreenComponent
+} from "components";
 import {
     AboutDialogComponent,
     CodeSnippetDialogComponent,
@@ -16,7 +20,7 @@ import {
     RegionDialogComponent,
     ShareWorkspaceDialogComponent,
     StokesDialogComponent,
-    TelemetryDialogComponent,
+    // TelemetryDialogComponent,
     VectorOverlayDialogComponent,
     WorkspaceDialogComponent
 } from "components/Dialogs";
@@ -26,7 +30,7 @@ export class UIControllerComponent extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <RootMenuComponent />
+                {/* <RootMenuComponent /> */}
                 <RegionDialogComponent />
                 <OnlineDataQueryDialogComponent />
                 <ContourDialogComponent />
@@ -43,8 +47,8 @@ export class UIControllerComponent extends React.Component {
                 <ExternalPageDialogComponent />
                 <HelpDrawerComponent />
                 <StokesDialogComponent />
-                <TelemetryDialogComponent />
-                <SplashScreenComponent />
+                {/* <TelemetryDialogComponent />
+                <SplashScreenComponent /> */}
                 <FittingDialogComponent />
             </React.Fragment>
         );
