@@ -1,15 +1,44 @@
 import * as React from "react";
 import {CSSProperties} from "react";
-import {AnchorButton, Button, ButtonGroup, Classes, Collapse, FormGroup, IconName, Menu, MenuDivider, MenuItem, Popover, PopoverInteractionKind, PopoverPosition, Position, Radio, RadioGroup, Switch, Tooltip} from "@blueprintjs/core";
+import {
+    // AnchorButton,
+    // Button,
+    ButtonGroup,
+    Classes,
+    // Collapse,
+    // FormGroup,
+    // IconName,
+    // Menu,
+    // MenuDivider,
+    // MenuItem,
+    Popover,
+    //  PopoverInteractionKind,
+    PopoverPosition,
+    Position,
+    Radio,
+    RadioGroup,
+    // Switch,
+    Tooltip
+} from "@blueprintjs/core";
 import {CARTA} from "carta-protobuf";
 import classNames from "classnames";
 import {observer} from "mobx-react";
 
 import {ImageViewComponent, ImageViewLayer} from "components";
-import {AnnotationMenuComponent, ExportImageMenuComponent} from "components/Shared";
-import {CustomIcon, CustomIconName} from "icons/CustomIcons";
+// import {
+//     AnnotationMenuComponent,
+//     ExportImageMenuComponent
+// } from "components/Shared";
+// import {CustomIcon, CustomIconName} from "icons/CustomIcons";
+import {NewCustomIcon} from "icons/NewCustomIcons";
 import {AppStore} from "stores";
-import {FrameScaling, FrameStore, RegionMode, RegionStore, RenderConfigStore} from "stores/Frame";
+import {
+    FrameScaling,
+    FrameStore,
+    RegionMode,
+    // RegionStore,
+    RenderConfigStore
+} from "stores/Frame";
 import {SystemType} from "stores/OverlayStore/OverlayStore";
 import {toFixed} from "utilities";
 
@@ -123,8 +152,11 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
 
         const styleProps: CSSProperties = {
             bottom: this.props.bottom ?? overlay.padding.bottom,
-            right: this.props.right ?? overlay.padding.right,
-            left: overlay.padding.left,
+            right: "40px",
+            top: "40px",
+            height: "fit-content",
+            flexDirection: "column",
+            // left: overlay.padding.left,
             opacity: this.props.visible ? 1 : 0,
             backgroundColor: "transparent"
         };
@@ -140,63 +172,63 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                 </i>
             </span>
         );
-        const tooltipPosition: PopoverPosition = "top";
+        const tooltipPosition: PopoverPosition = "left";
 
-        const annotationMenu = (
-            <Menu style={{padding: 0}}>
-                <AnnotationMenuComponent handleRegionTypeClicked={this.handleRegionTypeClicked} />
-            </Menu>
-        );
+        // const annotationMenu = (
+        //     <Menu style={{padding: 0}}>
+        //         <AnnotationMenuComponent handleRegionTypeClicked={this.handleRegionTypeClicked} />
+        //     </Menu>
+        // );
 
-        const popoverProps = {
-            position: Position.RIGHT_BOTTOM,
-            interactionKind: PopoverInteractionKind.CLICK
-        };
+        // const popoverProps = {
+        //     position: Position.RIGHT_BOTTOM,
+        //     interactionKind: PopoverInteractionKind.CLICK
+        // };
 
-        const regionMenu = (
-            <Menu>
-                {Array.from(RegionStore.AVAILABLE_REGION_TYPES).map(([type, text], index) => {
-                    const regionIconString: IconName | CustomIconName = RegionStore.RegionIconString(type);
-                    const regionIcon = RegionStore.IsRegionCustomIcon(type) ? <CustomIcon icon={regionIconString as CustomIconName} /> : (regionIconString as IconName);
-                    return <MenuItem icon={regionIcon} text={text} onClick={() => this.handleRegionTypeClicked(type)} key={index} />;
-                })}
-                <MenuDivider></MenuDivider>
-                <MenuItem icon={"annotation"} text={"Annotations"} popoverProps={popoverProps}>
-                    {annotationMenu}
-                </MenuItem>
-            </Menu>
-        );
+        // const regionMenu = (
+        //     <Menu>
+        //         {Array.from(RegionStore.AVAILABLE_REGION_TYPES).map(([type, text], index) => {
+        //             const regionIconString: IconName | CustomIconName = RegionStore.RegionIconString(type);
+        //             const regionIcon = RegionStore.IsRegionCustomIcon(type) ? <CustomIcon icon={regionIconString as CustomIconName} /> : (regionIconString as IconName);
+        //             return <MenuItem icon={regionIcon} text={text} onClick={() => this.handleRegionTypeClicked(type)} key={index} />;
+        //         })}
+        //         <MenuDivider></MenuDivider>
+        //         <MenuItem icon={"annotation"} text={"Annotations"} popoverProps={popoverProps}>
+        //             {annotationMenu}
+        //         </MenuItem>
+        //     </Menu>
+        // );
 
-        let coordinateSystem = overlay.global.system;
+        // let coordinateSystem = overlay.global.system;
 
-        const coordinateSystemMenu = (
-            <Menu>
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Auto)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Auto)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.FK5)} onClick={() => this.handleCoordinateSystemClicked(SystemType.FK5)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.FK4)} onClick={() => this.handleCoordinateSystemClicked(SystemType.FK4)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Galactic)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Galactic)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Ecliptic)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Ecliptic)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.ICRS)} onClick={() => this.handleCoordinateSystemClicked(SystemType.ICRS)} />
-                <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Image)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Image)} />
-                <FormGroup inline={false} className="offset-group">
-                    <Switch className="offset-switch" disabled={frame.isPVImage || frame.isSwappedZ || frame.isUVImage} checked={frame.isOffsetCoord} onChange={frame.toggleOffsetCoord} label="Offset" />
-                    <Collapse isOpen={frame.isOffsetCoord}>
-                        <Tooltip content="Set origin to current view center" position={Position.BOTTOM} hoverOpenDelay={300}>
-                            <Button icon="locate" disabled={!frame.isOffsetCoord} onClick={() => frame.updateOffsetCenter()} />
-                        </Tooltip>
-                    </Collapse>
-                </FormGroup>
-            </Menu>
-        );
+        // const coordinateSystemMenu = (
+        //     <Menu>
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Auto)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Auto)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.FK5)} onClick={() => this.handleCoordinateSystemClicked(SystemType.FK5)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.FK4)} onClick={() => this.handleCoordinateSystemClicked(SystemType.FK4)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Galactic)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Galactic)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Ecliptic)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Ecliptic)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.ICRS)} onClick={() => this.handleCoordinateSystemClicked(SystemType.ICRS)} />
+        //         <MenuItem text={ToolbarComponent.CoordinateSystemName.get(SystemType.Image)} onClick={() => this.handleCoordinateSystemClicked(SystemType.Image)} />
+        //         <FormGroup inline={false} className="offset-group">
+        //             <Switch className="offset-switch" disabled={frame.isPVImage || frame.isSwappedZ || frame.isUVImage} checked={frame.isOffsetCoord} onChange={frame.toggleOffsetCoord} label="Offset" />
+        //             <Collapse isOpen={frame.isOffsetCoord}>
+        //                 <Tooltip content="Set origin to current view center" position={Position.BOTTOM} hoverOpenDelay={300}>
+        //                     <Button icon="locate" disabled={!frame.isOffsetCoord} onClick={() => frame.updateOffsetCenter()} />
+        //                 </Tooltip>
+        //             </Collapse>
+        //         </FormGroup>
+        //     </Menu>
+        // );
 
-        const regionIconString: IconName | CustomIconName = RegionStore.RegionIconString(frame.regionSet.newRegionType);
-        const regionIcon = RegionStore.IsRegionCustomIcon(frame.regionSet.newRegionType) ? <CustomIcon icon={regionIconString as CustomIconName} /> : (regionIconString as IconName);
+        // const regionIconString: IconName | CustomIconName = RegionStore.RegionIconString(frame.regionSet.newRegionType);
+        // const regionIcon = RegionStore.IsRegionCustomIcon(frame.regionSet.newRegionType) ? <CustomIcon icon={regionIconString as CustomIconName} /> : (regionIconString as IconName);
 
         const spatialMatchingEnabled = !!frame.spatialReference;
         const spectralMatchingEnabled = !!frame.spectralReference;
-        const canEnableSpatialMatching = appStore.spatialReference !== frame;
-        const canEnableSpectralMatching = appStore.spectralReference && appStore.spectralReference !== frame && frame.frameInfo.fileInfoExtended.depth > 1;
-        const wcsButtonSuperscript = (spatialMatchingEnabled ? "x" : "") + (spectralMatchingEnabled ? "z" : "");
+        // const canEnableSpatialMatching = appStore.spatialReference !== frame;
+        // const canEnableSpectralMatching = appStore.spectralReference && appStore.spectralReference !== frame && frame.frameInfo.fileInfoExtended.depth > 1;
+        // const wcsButtonSuperscript = (spatialMatchingEnabled ? "x" : "") + (spectralMatchingEnabled ? "z" : "");
         const wcsButtonTooltipEntries = [];
         if (spectralMatchingEnabled) {
             wcsButtonTooltipEntries.push(`Spectral (${appStore.spectralMatchingType})`);
@@ -204,32 +236,32 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
         if (spatialMatchingEnabled) {
             wcsButtonTooltipEntries.push("Spatial");
         }
-        const wcsButtonTooltip = wcsButtonTooltipEntries.join(" and ") || "None";
+        // const wcsButtonTooltip = wcsButtonTooltipEntries.join(" and ") || "None";
 
-        const wcsMatchingMenu = (
-            <Menu>
-                <MenuItem
-                    text={`Spectral (${appStore.spectralMatchingType}) and spatial`}
-                    disabled={!canEnableSpatialMatching || !canEnableSpectralMatching}
-                    active={spectralMatchingEnabled && spatialMatchingEnabled}
-                    onClick={() => appStore.setMatchingEnabled(true, true)}
-                />
-                <MenuItem
-                    text={`Spectral (${appStore.spectralMatchingType})  only`}
-                    disabled={!canEnableSpectralMatching}
-                    active={spectralMatchingEnabled && !spatialMatchingEnabled}
-                    onClick={() => appStore.setMatchingEnabled(false, true)}
-                />
-                <MenuItem text="Spatial only" disabled={!canEnableSpatialMatching} active={!spectralMatchingEnabled && spatialMatchingEnabled} onClick={() => appStore.setMatchingEnabled(true, false)} />
-                <MenuItem text="None" disabled={!canEnableSpatialMatching} active={!spectralMatchingEnabled && !spatialMatchingEnabled} onClick={() => appStore.setMatchingEnabled(false, false)} />
-            </Menu>
-        );
+        // const wcsMatchingMenu = (
+        //     <Menu>
+        //         <MenuItem
+        //             text={`Spectral (${appStore.spectralMatchingType}) and spatial`}
+        //             disabled={!canEnableSpatialMatching || !canEnableSpectralMatching}
+        //             active={spectralMatchingEnabled && spatialMatchingEnabled}
+        //             onClick={() => appStore.setMatchingEnabled(true, true)}
+        //         />
+        //         <MenuItem
+        //             text={`Spectral (${appStore.spectralMatchingType})  only`}
+        //             disabled={!canEnableSpectralMatching}
+        //             active={spectralMatchingEnabled && !spatialMatchingEnabled}
+        //             onClick={() => appStore.setMatchingEnabled(false, true)}
+        //         />
+        //         <MenuItem text="Spatial only" disabled={!canEnableSpatialMatching} active={!spectralMatchingEnabled && spatialMatchingEnabled} onClick={() => appStore.setMatchingEnabled(true, false)} />
+        //         <MenuItem text="None" disabled={!canEnableSpatialMatching} active={!spectralMatchingEnabled && !spatialMatchingEnabled} onClick={() => appStore.setMatchingEnabled(false, false)} />
+        //     </Menu>
+        // );
 
-        const exportImageMenu = (
-            <Menu>
-                <ExportImageMenuComponent />
-            </Menu>
-        );
+        // const exportImageMenu = (
+        //     <Menu>
+        //         <ExportImageMenuComponent />
+        //     </Menu>
+        // );
 
         const scalingMenu = (
             <RadioGroup
@@ -248,26 +280,25 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
             </RadioGroup>
         );
 
-        const baseFrame = this.props.frame;
-        const numSourcesArray = appStore.catalogStore.visibleCatalogFiles.get(baseFrame)?.map(fileId => appStore.catalogStore.catalogCounts.get(fileId));
-        const numSourcesIsZero = numSourcesArray?.every(element => element === 0);
+        // const baseFrame = this.props.frame;
+        // const numSourcesArray = appStore.catalogStore.visibleCatalogFiles.get(baseFrame)?.map(fileId => appStore.catalogStore.catalogCounts.get(fileId));
+        // const numSourcesIsZero = numSourcesArray?.every(element => element === 0);
 
-        const catalogOverlayEnabled = appStore.activeLayer === ImageViewLayer.Catalog;
-        const catalogSelectionDisabled = appStore.catalogNum === 0 || numSourcesIsZero === true;
+        // const catalogOverlayEnabled = appStore.activeLayer === ImageViewLayer.Catalog;
+        // const catalogSelectionDisabled = appStore.catalogNum === 0 || numSourcesIsZero === true;
 
-        const handleDistanceMeasuringClicked = () => {
-            this.handleActiveLayerClicked(ImageViewLayer.RegionCreating);
-            appStore.activeFrame.regionSet.setNewRegionType(CARTA.RegionType.ANNRULER);
-            appStore.activeFrame.regionSet.setMode(RegionMode.CREATING);
-        };
-
+        // const handleDistanceMeasuringClicked = () => {
+        //     this.handleActiveLayerClicked(ImageViewLayer.RegionCreating);
+        //     appStore.activeFrame.regionSet.setNewRegionType(CARTA.RegionType.ANNRULER);
+        //     appStore.activeFrame.regionSet.setMode(RegionMode.CREATING);
+        // };
         return (
             <ButtonGroup className={className} style={styleProps}>
                 {appStore.toolbarExpanded && (
                     <React.Fragment>
                         {!frame.isPreview && (
                             <>
-                                <Tooltip
+                                {/* <Tooltip
                                     position={tooltipPosition}
                                     content={
                                         <span>
@@ -342,7 +373,7 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                                     >
                                         <AnchorButton icon={frame.regionSet.isNewRegionAnnotation ? "annotation" : regionIcon} onClick={() => this.handleActiveLayerClicked(ImageViewLayer.RegionCreating)} />
                                     </Tooltip>
-                                )}
+                                )} */}
                                 <Tooltip
                                     position={tooltipPosition}
                                     content={
@@ -357,38 +388,44 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                                         </span>
                                     }
                                 >
-                                    <AnchorButton
-                                        icon={"hand"}
+                                    <div
+                                        className={`toolbar-icon toolbar-icon-${frame.regionSet.mode === RegionMode.MOVING && appStore.activeLayer === ImageViewLayer.RegionMoving ? "active" : ""}`}
                                         onClick={() => this.handleActiveLayerClicked(ImageViewLayer.RegionMoving)}
                                         onDoubleClick={this.handlePanZoomShortCutClicked}
-                                        active={frame.regionSet.mode === RegionMode.MOVING && appStore.activeLayer === ImageViewLayer.RegionMoving}
-                                    />
+                                    >
+                                        <NewCustomIcon icon="pointer" size={26} />
+                                    </div>
                                 </Tooltip>
                             </>
                         )}
                         <Tooltip position={tooltipPosition} content={<span>Create line region</span>}>
                             <div className={`toolbar-icon`} onClick={() => this.handleRegionTypeClicked(CARTA.RegionType.LINE)}>
-                                {/* 等待样式 commit 后，这里 icon 换成自定义的 line icon */}
-                                <AnchorButton icon={"hand"} />
+                                <NewCustomIcon icon="line" size={26} />
                             </div>
                         </Tooltip>
                         <Tooltip position={tooltipPosition} content={<span>Zoom in (scroll wheel up){currentZoomSpan}</span>}>
-                            <AnchorButton icon={"zoom-in"} onClick={this.handleZoomInClicked} data-testid="zoom-in-button" />
+                            <div className="toolbar-icon" onClick={this.handleZoomInClicked} data-testid="zoom-in-button">
+                                <NewCustomIcon icon="zoom" size={26} />
+                            </div>
                         </Tooltip>
                         <Tooltip position={tooltipPosition} content={<span>Zoom out (scroll wheel down){currentZoomSpan}</span>}>
-                            <AnchorButton icon={"zoom-out"} onClick={this.handleZoomOutClicked} />
+                            <div className="toolbar-icon" onClick={this.handleZoomOutClicked}>
+                                <NewCustomIcon icon="zoomIn" size={26} />
+                            </div>
                         </Tooltip>
                         {!frame.isPreview && (
                             <Tooltip position={tooltipPosition} content={<span>Zoom to 1.0x{currentZoomSpan}</span>}>
-                                <AnchorButton className={"full-zoom-button"} onClick={this.handleZoomToActualSizeClicked}>
-                                    1.0x
-                                </AnchorButton>
+                                <div className="toolbar-icon" onClick={this.props.onZoomToFit}>
+                                    <NewCustomIcon icon="fullscreen" size={26} />
+                                </div>
                             </Tooltip>
                         )}
                         <Tooltip position={tooltipPosition} content={<span>Zoom to fit{currentZoomSpan}</span>}>
-                            <AnchorButton icon="zoom-to-fit" onClick={this.props.onZoomToFit} data-testid="zoom-to-fit-button" />
+                            <div className="toolbar-icon" onClick={this.handleZoomToActualSizeClicked}>
+                                <NewCustomIcon icon="fit" size={26} />
+                            </div>
                         </Tooltip>
-                        {!frame.isPreview && (
+                        {/* {!frame.isPreview && (
                             <>
                                 <Popover content={wcsMatchingMenu} position={Position.TOP} minimal={true}>
                                     <Tooltip
@@ -423,11 +460,13 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                                     </Tooltip>
                                 </Popover>
                             </>
-                        )}
+                        )} */}
                         <Tooltip position={tooltipPosition} content="Toggle grid">
-                            <AnchorButton icon="grid" active={grid.visible} onClick={() => grid.setVisible(!grid.visible)} data-testid="grid-button" />
+                            <div className={`toolbar-icon toolbar-icon-${grid.visible ? "active" : ""}`} onClick={() => grid.setVisible(!grid.visible)}>
+                                <NewCustomIcon icon="grid" size={26} />
+                            </div>
                         </Tooltip>
-                        {!frame.isPreview && (
+                        {/* {!frame.isPreview && (
                             <>
                                 <Tooltip position={tooltipPosition} content="Toggle labels">
                                     <AnchorButton icon="numerical" active={!overlay.labelsHidden} onClick={overlay.toggleLabels} />
@@ -446,18 +485,17 @@ export class ToolbarComponent extends React.Component<ToolbarComponentProps> {
                                     </Tooltip>
                                 </Popover>
                             </>
-                        )}
+                        )} */}
                         <Popover content={scalingMenu} position={Position.LEFT} minimal={true}>
                             <div className="toolbar-icon">
-                                {/* 等待样式 commit 后，这里 icon 换成自定义的 scaling icon */}
-                                <AnchorButton icon={"hand"} />
+                                <NewCustomIcon icon="linear" size={26} />
                             </div>
                         </Popover>
                     </React.Fragment>
                 )}
-                <Tooltip position={tooltipPosition} content={appStore.toolbarExpanded ? "Hide toolbar" : "Show toolbar"}>
+                {/* <Tooltip position={tooltipPosition} content={appStore.toolbarExpanded ? "Hide toolbar" : "Show toolbar"}>
                     <AnchorButton active={appStore.toolbarExpanded} icon={appStore.toolbarExpanded ? "double-chevron-right" : "double-chevron-left"} onClick={appStore.toggleToolbarExpanded} />
-                </Tooltip>
+                </Tooltip> */}
             </ButtonGroup>
         );
     }
