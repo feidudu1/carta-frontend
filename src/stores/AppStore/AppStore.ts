@@ -1845,9 +1845,9 @@ export class AppStore {
                 this.setCursorFrozen(this.preferenceStore.isCursorFrozen);
                 this.updateASTColors();
                 this.setSpectralMatchingType(this.preferenceStore.spectralMatchingType);
-                if (this.preferenceStore.checkNewRelease) {
-                    await this.checkNewRelease();
-                }
+                // if (this.preferenceStore.checkNewRelease) {
+                //     await this.checkNewRelease();
+                // }
             } catch (err) {
                 console.error(err);
             }
@@ -1960,15 +1960,15 @@ export class AppStore {
         // Display toasts when connection status changes
         autorun(() => {
             const newConnectionStatus = this.backendService.connectionStatus;
-            const userString = this.username ? ` as ${this.username}` : "";
+            // const userString = this.username ? ` as ${this.username}` : "";
             switch (newConnectionStatus) {
                 case ConnectionStatus.ACTIVE:
                     AppToaster.clear();
-                    if (this.backendService.connectionDropped) {
-                        AppToaster.show(WarningToast(`Reconnected to server${userString}. Some errors may occur`));
-                    } else {
-                        AppToaster.show(SuccessToast("swap-vertical", `Connected to CARTA server${userString}`));
-                    }
+                    // if (this.backendService.connectionDropped) {
+                    //     AppToaster.show(WarningToast(`Reconnected to server${userString}. Some errors may occur`));
+                    // } else {
+                    //     AppToaster.show(SuccessToast("swap-vertical", `Connected to CARTA server${userString}`));
+                    // }
                     break;
                 case ConnectionStatus.CLOSED:
                     if (this.previousConnectionStatus === ConnectionStatus.ACTIVE || this.previousConnectionStatus === ConnectionStatus.PENDING) {
